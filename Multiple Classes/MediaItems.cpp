@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//
 //
 // Media Item Class Implementation
 //
-
+//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Header Files
@@ -11,22 +11,27 @@
 #include <string>
 #include "MediaItems.hpp"
 
-//initial items active
+#define DEF_NAME ""
+#define DEF_PAGES 0
+#define DEF_PRICE 0.00
+#define DEF_PUB 1970
+
+//active mediaitem objects to start
 int MediaItems::active = 0;
 
 //Constructor - set name/author blank, pages/price to 0, and inprint/pubyear to default = true
 MediaItems::MediaItems()
 {
-	MediaItems::setName("");
+	MediaItems::setName(DEF_NAME);
 	//MediaItems::setAuthor("");
-	MediaItems::setPages(0);
+	MediaItems::setPages(DEF_PAGES);
 
 	MediaItems::setInPrint(false);
 	in_print_def = true;
 
-	MediaItems::setPrice(0.00);
+	MediaItems::setPrice(DEF_PRICE);
 
-	MediaItems::setPubYear(1970);
+	MediaItems::setPubYear(DEF_PUB);
 	pub_year_def = true;
 
 	MediaItems::modified(false);
@@ -48,8 +53,8 @@ void MediaItems::toCout()
 	else if (isEmpty() == true)
 	{
 		// display item name if present
-		if (name == "");
-		else if (name != "")
+		if (name == DEF_NAME);
+		else if (name != DEF_NAME)
 		{
 			std::cout << "  Media Item : " << name << std::endl;
 		}
@@ -62,15 +67,15 @@ void MediaItems::toCout()
 		}*/
 
 		//display page count if present
-		if (pages == 0);
-		else if (pages != 0)
+		if (pages == DEF_PAGES);
+		else if (pages != DEF_PAGES)
 		{
 			std::cout << "       Pages : " << pages << std::endl;
 		}
 
 		//display price if set
-		if (price == 0.00);
-		else if (price != 0.00)
+		if (price == DEF_PRICE);
+		else if (price != DEF_PRICE)
 		{
 			std::cout << "       Price : $" << std::fixed << price << std::endl;
 		}

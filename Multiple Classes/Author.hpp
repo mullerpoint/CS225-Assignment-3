@@ -24,4 +24,3 @@ public:
 	int in_mem();
 	void toCout();
 };
-

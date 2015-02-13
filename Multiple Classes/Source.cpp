@@ -14,7 +14,7 @@
 #include "Elements.hpp"
 
 //Gloabal Variables and Defines
-#define OBJS 20
+#define OBJS 30
 bool done = false;
 
 MediaItems* Items_ptr;
@@ -29,7 +29,10 @@ void print_menu();
 
 
 
-//Main Function
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Main Declaration
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
 	//Create an array of 20 media items for filling with data
@@ -76,7 +79,7 @@ void process_menu_in(char inchar)
 	{
 		std::cout << std::endl << std::endl << "==== All Items Start ====" << std::endl;
 		int count = 0;
-		while (count <= 19)
+		while (count <= (OBJS - 1))
 		{
 			std::cout << std::endl << "Item [" << count << "]" << std::endl;
 			Items_ptr[count].toCout();
@@ -91,13 +94,13 @@ void process_menu_in(char inchar)
 	//increase item number by 1
 	case '+':
 	{
-		if (*ItemNum_ptr < 19)
+		if (*ItemNum_ptr < (OBJS - 1))
 		{
 			*ItemNum_ptr = *ItemNum_ptr + 1;
 		}
-		else if (*ItemNum_ptr >= 19)
+		else if (*ItemNum_ptr >= (OBJS - 1))
 		{
-			*ItemNum_ptr = 19;
+			*ItemNum_ptr = (OBJS - 1);
 		}
 		std::cout << std::endl;
 	}
@@ -118,7 +121,7 @@ void process_menu_in(char inchar)
 	}
 	break;
 
-	// set a custom item number between 0-19
+	// set a custom item number between 0-OBJS
 	case '#':
 	{
 		//declare temp vaiable and read in user value
@@ -127,12 +130,12 @@ void process_menu_in(char inchar)
 		std::cin >> new_itemNum;
 
 		//validate input
-		if ((new_itemNum >= 0) && (new_itemNum <= 19))
+		if ((new_itemNum >= 0) && (new_itemNum <= (OBJS - 1)))
 		{
 			*ItemNum_ptr = new_itemNum;
 		}
 		else{
-			std::cout << "Please enter a valid number beteen 0-19";
+			std::cout << "Please enter a valid number beteen 0-" << OBJS;
 		}
 
 		//clear buffer for next input

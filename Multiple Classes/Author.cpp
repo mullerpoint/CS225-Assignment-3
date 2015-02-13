@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+//
 //
 // Author Class Implementation
 //
-
+//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Header Files
@@ -11,16 +11,25 @@
 #include <string>
 #include "Author.hpp"
 
+//Defines for default vaules
+#define DEF_BIRTH 0
+#define DEF_DEATH 0
+#define DEF_NAME ""
 
+//Active author objects to start
+int Author::active = 0;
+
+//Constructor
 Author::Author()
 {
-	Author::setBirth(0);
-	Author::setDeath(0);
-	Author::setName("");
+	Author::setBirth(DEF_BIRTH);
+	Author::setDeath(DEF_DEATH);
+	Author::setName(DEF_NAME);
 	Author::modified(false);
 	active++;
 }
 
+//Display all atributes
 void Author::toCout()
 {
 	if (isEmpty());
@@ -39,16 +48,18 @@ void Author::toCout()
 		if (name == "");
 		else if (true)
 		{
-			std::cout << "author name :" << name;
+			std::cout << "Author name :" << name;
 		}
 	}
 }
 
+//destructor
 Author::~Author()
 {
 	active--;
 }
 
+//set the birth year
 void Author::setBirth(int new_birth)
 {
 	if (new_birth >= 0)
@@ -62,6 +73,7 @@ void Author::setBirth(int new_birth)
 	}
 }
 
+//set the death year
 void Author::setDeath(int new_death)
 {
 	if (new_death >= 0)
@@ -75,22 +87,26 @@ void Author::setDeath(int new_death)
 	}
 }
 
+//set the author name
 void Author::setName(std::string new_author)
 {
 	Author::name = new_author;
 	Author::modified(true);
 }
 
+//set author as modified/ unmodified
 void Author::modified(bool data)
 {
 	Author::hasData = data;
 }
 
+//object empty check
 bool Author::isEmpty()
 {
 	return hasData;
 }
 
+//objects in memory
 int Author::in_mem()
 {
 	return active;
