@@ -11,10 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Author.cpp" />
+    <ClCompile Include="Elements.cpp" />
     <ClCompile Include="MediaItems.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Author.hpp" />
+    <ClInclude Include="Elements.hpp" />
     <ClInclude Include="MediaItems.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -10,6 +10,8 @@
 #include <string>
 #include <locale>
 #include "MediaItems.hpp"
+#include "Author.hpp"
+#include "Elements.hpp"
 
 //Gloabal Variables and Defines
 #define OBJS 20
@@ -162,14 +164,14 @@ void process_menu_in(char inchar)
 	break;
 
 	// enter item author menu option
-	case 'A':
+	/*case 'A':
 	{
 		std::string new_author;
 		std::cout << "Enter Media Item Author : ";
 		std::getline(std::cin, new_author);
 		Items_ptr[*ItemNum_ptr].setAuthor(new_author);
 	}
-	break;
+	break;*/
 
 	// enter item page count menu option
 	case 'P':
@@ -242,7 +244,7 @@ void print_menu()
 		<< "0 - Clear Media Item Data" << std::endl
 		<< "D - Display Media Item Data" << std::endl
 		<< "N - Set Media Item Name" << std::endl
-		<< "A - Set Media Item Author" << std::endl
+		/*<< "A - Set Media Item Author" << std::endl*/
 		<< "P - Set Media Item Pages" << std::endl
 		<< "I - set in print status" << std::endl
 		<< "V - set item Value//Price" << std::endl

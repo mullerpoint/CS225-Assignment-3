@@ -18,7 +18,7 @@ int MediaItems::active = 0;
 MediaItems::MediaItems()
 {
 	MediaItems::setName("");
-	MediaItems::setAuthor("");
+	//MediaItems::setAuthor("");
 	MediaItems::setPages(0);
 
 	MediaItems::setInPrint(false);
@@ -55,11 +55,11 @@ void MediaItems::toCout()
 		}
 
 		//display author name if present
-		if (author == "");
+		/*if (author == "");
 		else if (author != "")
 		{
 			std::cout << "      Author : " << author << std::endl;
-		}
+		}*/
 
 		//display page count if present
 		if (pages == 0);
@@ -107,11 +107,11 @@ void MediaItems::setName(std::string new_name)
 }
 
 //set book author
-void MediaItems::setAuthor(std::string new_author)
-{
-	MediaItems::author = new_author;
-	MediaItems::modified(true);
-}
+//void MediaItems::setAuthor(std::string new_author)
+//{
+//	MediaItems::author = new_author;
+//	MediaItems::modified(true);
+//}
 
 //set book page count - validate that the book doesnt have a negative page count
 void MediaItems::setPages(int new_pages)

@@ -6,7 +6,7 @@ class MediaItems
 {
 private:
 	std::string name;
-	std::string author;
+	//std::string author;
 	int pages;
 
 	bool in_print;
@@ -22,7 +22,7 @@ private:
 	static int active;
 public:
 	void setName(std::string);
-	void setAuthor(std::string);
+	//void setAuthor(std::string);
 	void setPages(int);
 	void setInPrint(bool);
 	void setPrice(double);
@@ -34,5 +34,3 @@ public:
 	MediaItems();
 	~MediaItems();
 };
-
-
