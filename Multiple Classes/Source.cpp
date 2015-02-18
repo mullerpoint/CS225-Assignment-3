@@ -9,10 +9,12 @@
 #include <iostream>
 #include <string>
 #include <locale>
+#include <io.h>
+#include <iomanip>
 #include "Author.hpp"
 #include "Elements.hpp"
 #include "MediaItems.hpp"
-#include <io.h>
+
 
 
 //Gloabal Variables and Defines
@@ -132,11 +134,11 @@ void process_menu_in(char inchar)
 			count++;
 		}
 
-		std::cout << std::endl << std::endl << "Authors in Memory :" << Auth_ptr[0].in_mem() << std::endl
-			<< "\tMemory Used : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes";
+		std::cout << std::endl << std::endl << "  Authors in Memory" << std::left << std::setw(19) << " : " << Auth_ptr[0].in_mem() << std::endl
+			<< "    Memory Used" << std::left << std::setw(19) << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes";
 
 		std::cout << std::endl << "===== All Authors End =====" << std::endl;
-		
+
 		//Print out all Media Item Objects
 		std::cout << std::endl << std::endl << "==== All Items Start ====" << std::endl;
 		count = 0;
@@ -146,18 +148,17 @@ void process_menu_in(char inchar)
 			else
 			{
 				std::cout << std::endl << "Item [" << count << "]" << std::endl;
-				//Items_ptr[count].toCout();
-				std::cout << Items_ptr[count];
+				Items_ptr[count].toCout();
 			}
 			count++;
 		}
 
-		std::cout << std::endl << std::endl << "Items in Memory:" << Items_ptr[0].in_mem() << std::endl
-			<< "\tMemory Used : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes";
+		std::cout << std::endl << std::endl << "  Items in Memory" << std::left << std::setw(19) << " : " << Items_ptr[0].in_mem() << std::endl
+			<< "    Memory Used" << std::left << std::setw(19) << " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes";
 
 		std::cout << std::endl << "===== All Items End =====" << std::endl;
 
-		std::cout << "\n\tTotal Memory Used : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
+		std::cout << std::endl << "  Total Memory Used" << std::left << std::setw(19) << " : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
 	}
 	break;
 
@@ -273,10 +274,10 @@ void process_menu_in(char inchar)
 	// enter item author menu option
 	/*case 'A':
 	{
-		std::string new_author;
-		std::cout << "Enter Media Item Author : ";
-		std::getline(std::cin, new_author);
-		Items_ptr[*ItemNum_ptr].setAuthor(new_author);
+	std::string new_author;
+	std::cout << "Enter Media Item Author : ";
+	std::getline(std::cin, new_author);
+	Items_ptr[*ItemNum_ptr].setAuthor(new_author);
 	}
 	break;*/
 
@@ -334,13 +335,13 @@ void process_menu_in(char inchar)
 		{
 			std::cout << "Please enter the Element name :";
 			std::cin >> name;
-			
+
 			std::cout << "Please enter the Element start, Zero(0) for none :";
 			std::cin >> start;
-			
+
 			std::cout << "Please enter the Element end, Zero(0) for none :";
 			std::cin >> end;
-			
+
 		}
 		else //scripted
 		{
@@ -348,9 +349,9 @@ void process_menu_in(char inchar)
 			std::cin >> end;
 			std::cin >> name;
 		}
-		
 
-		Items_ptr[*ItemNum_ptr].setElement(start, end, name, num =0);
+
+		Items_ptr[*ItemNum_ptr].setElement(start, end, name, num = 0);
 
 	}
 	break;
@@ -360,12 +361,12 @@ void process_menu_in(char inchar)
 		print_menu();
 		break;
 
-	// quit program menu option
+		// quit program menu option
 	case 'Q':
 		done = true;
 		break;
 
-	// default option if wrong key entered
+		// default option if wrong key entered
 	default:
 		std::cout << "Please select an option from the menu" << std::endl << "to see the menu again type 'm'";
 		break;

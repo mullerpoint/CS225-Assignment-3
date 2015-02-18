@@ -25,5 +25,5 @@ public:
 	int in_mem();
 	void toCout();
 
-	friend std::ostream& operator<<(std::ostream &out, const Author &Auth);
+	friend std::ostream& operator<<(std::ostream &out, Author &Auth);
 };

@@ -9,6 +9,7 @@
 //Header Files
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "Author.hpp"
 #include "Elements.hpp"
 #include "MediaItems.hpp"
@@ -17,7 +18,7 @@
 #define DEF_PAGES 0
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
-#define DEF_ELEMENT 0
+#define ELEMENT_ZERO 0
 
 //active mediaitem objects to start
 int MediaItems::active = 0;
@@ -39,7 +40,7 @@ MediaItems::MediaItems()
 
 	MediaItems::modified(false);
 
-	element_num = 0;
+	element_num = ELEMENT_ZERO;
 	active++;
 }
 
@@ -48,13 +49,8 @@ MediaItems::MediaItems()
 // display only elements with data in them; if no data in object then display empty
 void MediaItems::toCout()
 {
-	std::ostream &str;
-	//if the hasData flag is not set the item is empty
-	if (isEmpty() == false)
-	{
-		std::cout << "This item is empty" << std::endl;
-		str << "This item is empty";
-	}
+	//if the hasData flag is not set the item is empty and print nothing
+	if (isEmpty() == false);
 	// if the has data flag is set the item has some data in it
 	else if (isEmpty() == true)
 	{
@@ -62,28 +58,35 @@ void MediaItems::toCout()
 		if (name == DEF_NAME);
 		else if (name != DEF_NAME)
 		{
-			str << "  Media Item : " << name << std::endl;
+			std::cout << std::left << std::setw(19) << "Media Item" << " : " << name << std::endl;
 		}
 
 		//display author name if present
 		if (author_ptr == NULL);
 		else if (author_ptr != NULL)
 		{
-			std::cout << "      Author : " << (*MediaItems::author_ptr).getName() << std::endl;
+			std::cout << *author_ptr << std::endl;
+		}
+
+		//display publication year if set; check if the value is default
+		if (pub_year_def == true);
+		else if (pub_year_def == false)
+		{
+			std::cout << std::left << std::setw(19) << "  Pub Year" << " : " << pub_year << std::endl;
 		}
 
 		//display page count if present
 		if (pages == DEF_PAGES);
 		else if (pages != DEF_PAGES)
 		{
-			std::cout << "       Pages : " << pages << std::endl;
+			std::cout << std::left << std::setw(19) << "  Pages" << " : " << pages << std::endl;
 		}
 
 		//display price if set
 		if (price == DEF_PRICE);
 		else if (price != DEF_PRICE)
 		{
-			std::cout << "       Price : $" << std::fixed << price << std::endl;
+			std::cout << std::left << std::setw(19) << "  Price" << " : $" << std::fixed << price << std::endl;
 		}
 
 		//display if the item is in print; check for default then prints the value
@@ -92,19 +95,24 @@ void MediaItems::toCout()
 		{
 			if (in_print == true)
 			{
-				std::cout << "Print Status : " << "True" << std::endl;
+				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "True" << std::endl;
 			}
 			else if (in_print == false)
 			{
-				std::cout << "Print Status : " << "False" << std::endl;
+				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "False" << std::endl;
 			}
 		}
 
-		//display publication year if set; check if the value is default
-		if (pub_year_def == true);
-		else if (pub_year_def == false)
+		//display elements if they exist; 
+		if (element_num = ELEMENT_ZERO);
+		else if (element_num > ELEMENT_ZERO)
 		{
-			std::cout << "    Pub Year : " << pub_year << std::endl;
+			int count = 0;
+			while (count < element_num)
+			{
+				std::cout << MediaItems::element[count];
+				count++;
+			}
 		}
 	}
 }
@@ -125,11 +133,12 @@ void MediaItems::setAuthor(Author* new_author)
 
 //set book elements
 void MediaItems::setElement(int start, int end, std::string name, int elementNum)
+//elementNum is not used but I included it to make it easier to change the program over later
 {
-	element[elementNum].setStart(start);
-	element[elementNum].setEnd(end);
-	element[elementNum].setName(name);
-	elementNum++;
+	element[element_num].setStart(start);
+	element[element_num].setEnd(end);
+	element[element_num].setName(name);
+	element_num++;
 }
 
 
@@ -204,10 +213,4 @@ MediaItems::~MediaItems()
 int MediaItems::in_mem()
 {
 	return active;
-}
-
-std::ostream& operator<<(std::ostream &out, MediaItems &MI)
-{
-	out = MI.toCout;
-	return out;
 }

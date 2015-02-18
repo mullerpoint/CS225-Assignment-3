@@ -9,7 +9,9 @@
 //Header Files
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "Author.hpp"
+
 
 //Defines for default vaules
 #define DEF_BIRTH 0
@@ -35,20 +37,20 @@ void Author::toCout()
 	if (isEmpty());
 	else if (!isEmpty())
 	{
+		if (name == "");
+		else if (true)
+		{
+			std::cout << std::left << std::setw(19) << "Author name" << " : " << name;
+		}
 		if (birthYear == 0);
 		else if (birthYear > 0)
 		{
-			std::cout << "Birth Year :" << birthYear;
+			std::cout << std::left << std::setw(19) << "  Birth Year" << " : " << birthYear;
 		}
 		if (deathYear == 0);
 		else if (deathYear > 0)
 		{
-			std::cout << "Death Year :" << deathYear;
-		}
-		if (name == "");
-		else if (true)
-		{
-			std::cout << "Author name :" << name;
+			std::cout << std::left << std::setw(19) << "  Death Year" << " : " << deathYear;
 		}
 	}
 }
@@ -118,9 +120,8 @@ int Author::in_mem()
 	return active;
 }
 
-std::ostream& operator<<(std::ostream &out, const Author &Auth)
+std::ostream& operator<<(std::ostream &out, Author &Auth)
 {
-	out << Author::name;
-	
+	out << std::left << std::setw(19) << "  Author" << " : " << Auth.name;
 	return out;
 }

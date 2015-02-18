@@ -39,6 +39,4 @@ public:
 	MediaItems();
 	~MediaItems();
 
-	friend std::ostream& operator<< (std::ostream &out, MediaItems &MI);
-
 };
