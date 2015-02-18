@@ -9,12 +9,15 @@
 //Header Files
 #include <iostream>
 #include <string>
+#include "Author.hpp"
+#include "Elements.hpp"
 #include "MediaItems.hpp"
 
 #define DEF_NAME ""
 #define DEF_PAGES 0
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
+#define DEF_ELEMENT 0
 
 //active mediaitem objects to start
 int MediaItems::active = 0;
@@ -23,7 +26,7 @@ int MediaItems::active = 0;
 MediaItems::MediaItems()
 {
 	MediaItems::setName(DEF_NAME);
-	//MediaItems::setAuthor("");
+	MediaItems::setAuthor(NULL);
 	MediaItems::setPages(DEF_PAGES);
 
 	MediaItems::setInPrint(false);
@@ -36,6 +39,7 @@ MediaItems::MediaItems()
 
 	MediaItems::modified(false);
 
+	element_num = 0;
 	active++;
 }
 
@@ -44,10 +48,12 @@ MediaItems::MediaItems()
 // display only elements with data in them; if no data in object then display empty
 void MediaItems::toCout()
 {
+	std::ostream &str;
 	//if the hasData flag is not set the item is empty
 	if (isEmpty() == false)
 	{
 		std::cout << "This item is empty" << std::endl;
+		str << "This item is empty";
 	}
 	// if the has data flag is set the item has some data in it
 	else if (isEmpty() == true)
@@ -56,15 +62,15 @@ void MediaItems::toCout()
 		if (name == DEF_NAME);
 		else if (name != DEF_NAME)
 		{
-			std::cout << "  Media Item : " << name << std::endl;
+			str << "  Media Item : " << name << std::endl;
 		}
 
 		//display author name if present
-		/*if (author == "");
-		else if (author != "")
+		if (author_ptr == NULL);
+		else if (author_ptr != NULL)
 		{
-			std::cout << "      Author : " << author << std::endl;
-		}*/
+			std::cout << "      Author : " << (*MediaItems::author_ptr).getName() << std::endl;
+		}
 
 		//display page count if present
 		if (pages == DEF_PAGES);
@@ -112,11 +118,20 @@ void MediaItems::setName(std::string new_name)
 }
 
 //set book author
-//void MediaItems::setAuthor(std::string new_author)
-//{
-//	MediaItems::author = new_author;
-//	MediaItems::modified(true);
-//}
+void MediaItems::setAuthor(Author* new_author)
+{
+	MediaItems::author_ptr = new_author;
+}
+
+//set book elements
+void MediaItems::setElement(int start, int end, std::string name, int elementNum)
+{
+	element[elementNum].setStart(start);
+	element[elementNum].setEnd(end);
+	element[elementNum].setName(name);
+	elementNum++;
+}
+
 
 //set book page count - validate that the book doesnt have a negative page count
 void MediaItems::setPages(int new_pages)
@@ -189,4 +204,10 @@ MediaItems::~MediaItems()
 int MediaItems::in_mem()
 {
 	return active;
+}
+
+std::ostream& operator<<(std::ostream &out, MediaItems &MI)
+{
+	out = MI.toCout;
+	return out;
 }

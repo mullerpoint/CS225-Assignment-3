@@ -94,6 +94,12 @@ void Author::setName(std::string new_author)
 	Author::modified(true);
 }
 
+//get the Author Name
+std::string Author::getName()
+{
+	return Author::name;
+}
+
 //set author as modified/ unmodified
 void Author::modified(bool data)
 {
@@ -110,4 +116,11 @@ bool Author::isEmpty()
 int Author::in_mem()
 {
 	return active;
+}
+
+std::ostream& operator<<(std::ostream &out, const Author &Auth)
+{
+	out << Author::name;
+	
+	return out;
 }

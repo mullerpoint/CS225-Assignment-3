@@ -16,6 +16,7 @@ private:
 public:
 	Author();
 	~Author();
+	std::string getName();
 	void setBirth(int);
 	void setDeath(int);
 	void setName(std::string);
@@ -23,4 +24,6 @@ public:
 	bool isEmpty();
 	int in_mem();
 	void toCout();
+
+	friend std::ostream& operator<<(std::ostream &out, const Author &Auth);
 };
