@@ -132,7 +132,7 @@ void process_menu_in(char inchar)
 		while (count <= (OBJS_AUTH - 1))
 		{
 			if (!Auth_ptr[count].isEmpty());
-			//isempty() returns the has data value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
+			//isempty() returns the hasData value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
 			else
 			{
 				std::cout << std::endl << "Author [" << count << "] :" << std::endl ;
@@ -151,9 +151,9 @@ void process_menu_in(char inchar)
 		count = 0;
 		while (count <= (OBJS_MI - 1))
 		{
-			if (!Items_ptr[count].isEmpty()); 
-			//isempty() returns the has data value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
-			else
+			if (Items_ptr[count].isEmpty() == false); 
+			//isempty() returns the hasData value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
+			else if (Items_ptr[count].isEmpty() == true)
 			{
 				std::cout << std::endl << "Item [" << count << "]" << std::endl;
 				Items_ptr[count].toCout();
@@ -270,12 +270,11 @@ void process_menu_in(char inchar)
 			std::cin >> died;
 			Auth_ptr[*AuthNum_ptr].setDeath(died);
 			std::cin.ignore(10000, '\n');
+
+			*AuthNum_ptr = *AuthNum_ptr + 1;
 		}
 		else //scripted
 		{
-			std::getline(std::cin, name);
-			Auth_ptr[*AuthNum_ptr].setName(name);
-
 			std::cin >> born;
 			Auth_ptr[*AuthNum_ptr].setBirth(born);
 			std::cin.ignore(1, '\n');
@@ -283,19 +282,14 @@ void process_menu_in(char inchar)
 			std::cin >> died;
 			Auth_ptr[*AuthNum_ptr].setDeath(died);
 			std::cin.ignore(1, '\n');
+			
+			std::getline(std::cin, name);
+			Auth_ptr[*AuthNum_ptr].setName(name);
+			
+			*AuthNum_ptr = *AuthNum_ptr + 1;
 		}
 	}
 	break;
-
-	// enter item author menu option
-	/*case 'A':
-	{
-	std::string new_author;
-	std::cout << "Enter Media Item Author : ";
-	std::getline(std::cin, new_author);
-	Items_ptr[*ItemNum_ptr].setAuthor(new_author);
-	}
-	break;*/
 
 	// enter item page count menu option
 	case 'P':
@@ -369,7 +363,8 @@ void process_menu_in(char inchar)
 			std::cin >> end;
 			std::cin.ignore(1, '\n');
 
-			std::cin >> name;
+			std::getline(std::cin, name);
+			Auth_ptr[*AuthNum_ptr].setName(name);
 		}
 
 
@@ -386,6 +381,17 @@ void process_menu_in(char inchar)
 		std::cin >> temp_num;
 		std::cin.ignore(1, '\n');
 		Items_ptr[*ItemNum_ptr].setAuthor(&Auth_ptr[temp_num]);
+	}
+	break;
+
+	//Set Sequel index
+	case 'S':
+	{
+		int temp_num;
+		std::cout << "Enter Sequel index number : ";
+		std::cin >> temp_num;
+		std::cin.ignore(1, '\n');
+		Items_ptr[*ItemNum_ptr].setSequel(&Items_ptr[temp_num]);
 	}
 	break;
 

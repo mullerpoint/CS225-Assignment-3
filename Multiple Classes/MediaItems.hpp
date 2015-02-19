@@ -9,9 +9,14 @@ class MediaItems
 private:
 	std::string name;
 	Author* author_ptr;
+
 	Elements element[DEF_ELEMENTS];
 	int element_num;
+
 	int pages;
+
+	MediaItems* sequel_ptr;
+	bool hasSequel;
 
 	bool in_print;
 	bool in_print_def;
@@ -27,12 +32,14 @@ private:
 public:
 	void setName(std::string);
 	void setAuthor(Author*);
+	void setSequel(MediaItems*);
 	void setPages(int);
 	void setInPrint(bool);
 	void setPrice(double);
 	void setPubYear(int);
 	void setElement(int, int, std::string, int);
 	void toCout();
+	std::string getName();
 	void modified(bool);
 	bool isEmpty();
 	int in_mem();

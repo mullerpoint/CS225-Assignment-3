@@ -40,6 +40,8 @@ MediaItems::MediaItems()
 
 	MediaItems::modified(false);
 
+	MediaItems::setSequel(NULL);
+
 	element_num = ELEMENT_ZERO;
 	active++;
 }
@@ -103,6 +105,13 @@ void MediaItems::toCout()
 			}
 		}
 
+		//Print out the sequel
+		if (sequel_ptr == NULL);
+		else if (sequel_ptr != NULL)
+		{
+			std::cout << std::left << std::setw(19) << "  Sequel" << " : " << (*MediaItems::sequel_ptr).getName() << std::endl;
+		}
+
 		//display elements if they exist; 
 		if (element_num == ELEMENT_ZERO);
 		else if (element_num > ELEMENT_ZERO)
@@ -125,10 +134,24 @@ void MediaItems::setName(std::string new_name)
 	MediaItems::modified(true);
 }
 
+//get book title
+
+std::string MediaItems::getName()
+{
+	return MediaItems::name;
+}
+
 //set book author
 void MediaItems::setAuthor(Author* new_author)
 {
 	MediaItems::author_ptr = new_author;
+	MediaItems::modified(true);
+}
+
+//Set Sequel
+void MediaItems::setSequel(MediaItems* new_sequel)
+{
+	MediaItems::sequel_ptr = new_sequel;
 	MediaItems::modified(true);
 }
 
