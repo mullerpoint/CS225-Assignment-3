@@ -29,19 +29,21 @@ int interactive = _isatty(_fileno(stdin)); //windowns statement
 //define global pointers for media item objects
 MediaItems* Items_ptr;
 int* ItemNum_ptr;
+//
 
 //define global pointers for author objects
 Author* Auth_ptr;
 int* AuthNum_ptr;
+//
 
 //define global locale pointer for the locale imbue functionality
 std::locale* locale;
-
+//
 
 //Function Prototypes
 void process_menu_in(char);
 void print_menu();
-
+//
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,17 +53,19 @@ void print_menu();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	//Create an array of 20 media items for filling with data
+	//Create an array, of size OBJS_MI, of media items for filling with data
 	//useing the global pointer we can use the item specified with 
 	MediaItems Items[OBJS_MI];
 	Items_ptr = &Items[0];
 	int itemNum = 0;
 	ItemNum_ptr = &itemNum;
 
-	Author Authors[OBJS_AUTH];
-	Auth_ptr = &Authors[0];
 	int AuthNum = 0;
 	AuthNum_ptr = &AuthNum;
+	Author Authors[OBJS_AUTH];
+	Auth_ptr = &Authors[*AuthNum_ptr];
+	
+	
 
 	//determine if interactive or scripted
 
@@ -114,8 +118,10 @@ void process_menu_in(char inchar)
 
 	case '/':
 	{
-		std::cin.ignore(10000, '\n');
+		std::string junk_line;
+		std::getline(std::cin, junk_line);
 	}
+	break;
 
 	// Print all objects
 	case '*':
@@ -125,26 +131,28 @@ void process_menu_in(char inchar)
 		int count = 0;
 		while (count <= (OBJS_AUTH - 1))
 		{
-			if (Auth_ptr[count].isEmpty());
+			if (!Auth_ptr[count].isEmpty());
+			//isempty() returns the has data value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
 			else
 			{
-				std::cout << std::endl << "Author [" << count << "]" << std::endl;
+				std::cout << std::endl << "Author [" << count << "] :" << std::endl ;
 				Auth_ptr[count].toCout();
 			}
 			count++;
 		}
 
-		std::cout << std::endl << std::endl << "  Authors in Memory" << std::left << std::setw(19) << " : " << Auth_ptr[0].in_mem() << std::endl
-			<< "    Memory Used" << std::left << std::setw(19) << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes";
+		std::cout << std::endl << std::endl << std::left << std::setw(19) << "  Authors in Memory" << " : " << Auth_ptr[0].in_mem() << std::endl
+			<< std::left << std::setw(19) << "    Memory Used" << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes";
 
 		std::cout << std::endl << "===== All Authors End =====" << std::endl;
 
 		//Print out all Media Item Objects
-		std::cout << std::endl << std::endl << "==== All Items Start ====" << std::endl;
+		std::cout << std::endl << std::endl << "===== All Items Start =====" << std::endl;
 		count = 0;
 		while (count <= (OBJS_MI - 1))
 		{
-			if (Items_ptr[count].isEmpty());
+			if (!Items_ptr[count].isEmpty()); 
+			//isempty() returns the has data value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
 			else
 			{
 				std::cout << std::endl << "Item [" << count << "]" << std::endl;
@@ -153,12 +161,12 @@ void process_menu_in(char inchar)
 			count++;
 		}
 
-		std::cout << std::endl << std::endl << "  Items in Memory" << std::left << std::setw(19) << " : " << Items_ptr[0].in_mem() << std::endl
-			<< "    Memory Used" << std::left << std::setw(19) << " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes";
+		std::cout << std::endl << std::endl << std::left << std::setw(19) << "  Items in Memory" << " : " << Items_ptr[0].in_mem()  <<  std::endl
+			<< std::left << std::setw(19) << "    Memory Used" <<  " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes";
 
-		std::cout << std::endl << "===== All Items End =====" << std::endl;
+		std::cout << std::endl << "====== All Items End ======" << std::endl;
 
-		std::cout << std::endl << "  Total Memory Used" << std::left << std::setw(19) << " : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
+		std::cout << std::endl << std::left << std::setw(19) << "  Total Memory Used" <<  " : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
 	}
 	break;
 
@@ -224,10 +232,13 @@ void process_menu_in(char inchar)
 
 	// display item menu option
 	case 'D':
+	{
+		std::cout << std::endl << "Item [" << *ItemNum_ptr << "] :" << std::endl;
 		Items_ptr[*ItemNum_ptr].toCout();
+	}
 		break;
 
-		// enter item name menu option
+	// enter item name menu option
 	case 'N':
 	{
 		std::string new_name;
@@ -246,27 +257,32 @@ void process_menu_in(char inchar)
 		if (interactive)
 		{
 			std::cout << "Please enter the Authors name :";
-			std::cin >> name;
+			std::getline(std::cin, name);
 			Auth_ptr[*AuthNum_ptr].setName(name);
+			
 
 			std::cout << "Please enter the Authors birth year (yyyy), Zero(0) for none :";
 			std::cin >> born;
 			Auth_ptr[*AuthNum_ptr].setBirth(born);
+			std::cin.ignore(10000, '\n');
 
 			std::cout << "Please enter the Authors death year (yyyy), Zero(0) for none :";
 			std::cin >> died;
 			Auth_ptr[*AuthNum_ptr].setDeath(died);
+			std::cin.ignore(10000, '\n');
 		}
 		else //scripted
 		{
-			std::cin >> name;
+			std::getline(std::cin, name);
 			Auth_ptr[*AuthNum_ptr].setName(name);
 
 			std::cin >> born;
 			Auth_ptr[*AuthNum_ptr].setBirth(born);
+			std::cin.ignore(1, '\n');
 
 			std::cin >> died;
 			Auth_ptr[*AuthNum_ptr].setDeath(died);
+			std::cin.ignore(1, '\n');
 		}
 	}
 	break;
@@ -333,26 +349,43 @@ void process_menu_in(char inchar)
 
 		if (interactive)
 		{
-			std::cout << "Please enter the Element name :";
-			std::cin >> name;
+			std::cout << "Please enter the Element name : ";
+			std::getline(std::cin, name);
 
-			std::cout << "Please enter the Element start, Zero(0) for none :";
+			std::cout << "Please enter the Element start, Zero(0) for none : ";
 			std::cin >> start;
+			std::cin.ignore(1, '\n');
 
-			std::cout << "Please enter the Element end, Zero(0) for none :";
+			std::cout << "Please enter the Element end, Zero(0) for none : ";
 			std::cin >> end;
+			std::cin.ignore(1, '\n');
 
 		}
 		else //scripted
 		{
 			std::cin >> start;
+			std::cin.ignore(1, '\n');
+
 			std::cin >> end;
+			std::cin.ignore(1, '\n');
+
 			std::cin >> name;
 		}
 
 
 		Items_ptr[*ItemNum_ptr].setElement(start, end, name, num = 0);
 
+	}
+	break;
+
+	//Set author pointer
+	case 'T':
+	{
+		int temp_num;
+		std::cout << "Enter Author index number : ";
+		std::cin >> temp_num;
+		std::cin.ignore(1, '\n');
+		Items_ptr[*ItemNum_ptr].setAuthor(&Auth_ptr[temp_num]);
 	}
 	break;
 
@@ -366,7 +399,18 @@ void process_menu_in(char inchar)
 		done = true;
 		break;
 
-		// default option if wrong key entered
+	// show memory useage
+	case 'R':
+	{
+		std::cout
+			<< std::left << std::setw(28) << "Memory Used for Authors" << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Media Items" << " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "  Total Memory Used" << " : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
+
+	}
+	break;
+
+	// default option if wrong key entered
 	default:
 		std::cout << "Please select an option from the menu" << std::endl << "to see the menu again type 'm'";
 		break;
@@ -385,6 +429,7 @@ void print_menu()
 		<< "D - Display Media Item Data" << std::endl
 		<< "N - Set Media Item Name" << std::endl
 		<< "T - Set Author Index Number" << std::endl
+		<< "E - Add Media Item Element" << std::endl
 		<< "P - Set Media Item Pages" << std::endl
 		<< "I - set in print status" << std::endl
 		<< "V - set item Value/Price" << std::endl

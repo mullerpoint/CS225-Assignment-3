@@ -34,25 +34,23 @@ Author::Author()
 //Display all atributes
 void Author::toCout()
 {
-	if (isEmpty());
-	else if (!isEmpty())
-	{
 		if (name == "");
 		else if (true)
 		{
-			std::cout << std::left << std::setw(19) << "Author name" << " : " << name;
+			std::cout << std::left << std::setw(19) << " Author name" << " : " << name << std::endl;
 		}
+
 		if (birthYear == 0);
 		else if (birthYear > 0)
 		{
-			std::cout << std::left << std::setw(19) << "  Birth Year" << " : " << birthYear;
+			std::cout << std::left << std::setw(19) << "   Birth Year" << " : " << birthYear << std::endl;
 		}
+
 		if (deathYear == 0);
 		else if (deathYear > 0)
 		{
-			std::cout << std::left << std::setw(19) << "  Death Year" << " : " << deathYear;
+			std::cout << std::left << std::setw(19) << "   Death Year" << " : " << deathYear << std::endl;
 		}
-	}
 }
 
 //destructor

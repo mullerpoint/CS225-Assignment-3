@@ -65,7 +65,7 @@ void MediaItems::toCout()
 		if (author_ptr == NULL);
 		else if (author_ptr != NULL)
 		{
-			std::cout << *author_ptr << std::endl;
+			std::cout << std::left << std::setw(19) << "  Author" << " : " << (*MediaItems::author_ptr).getName() << std::endl;
 		}
 
 		//display publication year if set; check if the value is default
@@ -95,16 +95,16 @@ void MediaItems::toCout()
 		{
 			if (in_print == true)
 			{
-				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "True" << std::endl;
+				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "In Print" << std::endl;
 			}
 			else if (in_print == false)
 			{
-				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "False" << std::endl;
+				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "Out of Print" << std::endl;
 			}
 		}
 
 		//display elements if they exist; 
-		if (element_num = ELEMENT_ZERO);
+		if (element_num == ELEMENT_ZERO);
 		else if (element_num > ELEMENT_ZERO)
 		{
 			int count = 0;
@@ -129,6 +129,7 @@ void MediaItems::setName(std::string new_name)
 void MediaItems::setAuthor(Author* new_author)
 {
 	MediaItems::author_ptr = new_author;
+	MediaItems::modified(true);
 }
 
 //set book elements
@@ -138,7 +139,8 @@ void MediaItems::setElement(int start, int end, std::string name, int elementNum
 	element[element_num].setStart(start);
 	element[element_num].setEnd(end);
 	element[element_num].setName(name);
-	element_num++;
+	MediaItems::modified(true);
+	MediaItems::element_num++;	
 }
 
 
