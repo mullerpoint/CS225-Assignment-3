@@ -6,11 +6,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Header files standard libraries and classes
-#include <iostream>
-#include <string>
-#include <locale>
-#include <io.h>
-#include <iomanip>
+#include <iostream> //default include
+#include <string> // included to get strings to work
+#include <locale> // included to get locale info for output
+#include <io.h> // isatty for windows
+//#include <unistd.h> // isatty  for linux
+#include <iomanip> // included to make pretty output
+
+//User Defined Class Includes
 #include "Author.hpp"
 #include "Elements.hpp"
 #include "MediaItems.hpp"
@@ -20,11 +23,12 @@
 //Gloabal Variables and Defines
 #define OBJS_MI 30 //number of Media Items
 #define OBJS_AUTH 8 //number of Authors
+#define TEXT_WIDTH 20
 bool done = false;
 
 //determine if interactive or scripted
 int interactive = _isatty(_fileno(stdin)); //windowns statement
-//int interactive = isatty(fileno(stdin)); //unix statement
+//int interactive = isatty(STDIN_FILENO); //unix statement
 
 //define global pointers for media item objects
 MediaItems* Items_ptr;
@@ -141,8 +145,8 @@ void process_menu_in(char inchar)
 			count++;
 		}
 
-		std::cout << std::endl << std::endl << std::left << std::setw(19) << "  Authors in Memory" << " : " << Auth_ptr[0].in_mem() << std::endl
-			<< std::left << std::setw(19) << "    Memory Used" << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes";
+		std::cout << std::endl << std::endl << std::left << std::setw(TEXT_WIDTH) << "  Authors in Memory" << " : " << Auth_ptr[0].in_mem() << std::endl
+			<< std::left << std::setw(TEXT_WIDTH) << "    Memory Used" << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes";
 
 		std::cout << std::endl << "===== All Authors End =====" << std::endl;
 
@@ -151,9 +155,9 @@ void process_menu_in(char inchar)
 		count = 0;
 		while (count <= (OBJS_MI - 1))
 		{
-			if (Items_ptr[count].isEmpty() == false); 
+			if (!Items_ptr[count].isEmpty()); 
 			//isempty() returns the hasData value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
-			else if (Items_ptr[count].isEmpty() == true)
+			else //if (Items_ptr[count].isEmpty() == true)
 			{
 				std::cout << std::endl << "Item [" << count << "]" << std::endl;
 				Items_ptr[count].toCout();
@@ -161,12 +165,12 @@ void process_menu_in(char inchar)
 			count++;
 		}
 
-		std::cout << std::endl << std::endl << std::left << std::setw(19) << "  Items in Memory" << " : " << Items_ptr[0].in_mem()  <<  std::endl
-			<< std::left << std::setw(19) << "    Memory Used" <<  " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes";
+		std::cout << std::endl << std::endl << std::left << std::setw(TEXT_WIDTH) << "  Items in Memory" << " : " << Items_ptr[0].in_mem()  <<  std::endl
+			<< std::left << std::setw(TEXT_WIDTH) << "    Memory Used" <<  " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes";
 
 		std::cout << std::endl << "====== All Items End ======" << std::endl;
 
-		std::cout << std::endl << std::left << std::setw(19) << "  Total Memory Used" <<  " : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
+		std::cout << std::endl << std::left << std::setw(TEXT_WIDTH) << "  Total Memory Used" <<  " : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
 	}
 	break;
 
@@ -275,16 +279,8 @@ void process_menu_in(char inchar)
 		}
 		else //scripted
 		{
-			std::cin >> born;
-			Auth_ptr[*AuthNum_ptr].setBirth(born);
-			std::cin.ignore(1, '\n');
-
-			std::cin >> died;
-			Auth_ptr[*AuthNum_ptr].setDeath(died);
-			std::cin.ignore(1, '\n');
-			
-			std::getline(std::cin, name);
-			Auth_ptr[*AuthNum_ptr].setName(name);
+			std::cin >> Auth_ptr[*AuthNum_ptr];
+			//std::cin.ignore(256, '\n');
 			
 			*AuthNum_ptr = *AuthNum_ptr + 1;
 		}

@@ -17,6 +17,7 @@
 #define DEF_START 0
 #define DEF_END 0
 #define DEF_NAME ""
+#define TEXT_WIDTH 20
 
 //Active elements objects to start
 int Elements::active = 0;
@@ -46,17 +47,17 @@ void Elements::toCout()
 		if (name == "");
 		else if (true)
 		{
-			std::cout << std::left << std::setw(19) << "Element name" << " : " << name;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "Element name" << " : " << name;
 		}
 		if (start == 0);
 		else if (start > 0)
 		{
-			std::cout << std::left << std::setw(19) << "Start" << " : " << start;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "Start" << " : " << start;
 		}
 		if (end == 0);
 		else if (end > 0)
 		{
-			std::cout << std::left << std::setw(19) << "End" << " : " << end;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "End" << " : " << end;
 		}
 
 	}
@@ -121,29 +122,29 @@ std::ostream& operator<<(std::ostream &out, Elements &Elem)
 	if ((Elem.name != DEF_NAME) && (Elem.end != DEF_END) && (Elem.start != DEF_START))
 	{
 		out <<
-			std::left << std::setw(19) << "    Element Name" << " : " << Elem.name << std::endl <<
-			std::left << std::setw(19) << "      Element Start" << " : " << Elem.start << std::endl <<
-			std::left << std::setw(19) << "      Element End" << " : " << Elem.end << std::endl;
+			std::left << std::setw(TEXT_WIDTH) << "    Element Name" << " : " << Elem.name << std::endl <<
+			std::left << std::setw(TEXT_WIDTH) << "      Element Start" << " : " << Elem.start << std::endl <<
+			std::left << std::setw(TEXT_WIDTH) << "      Element End" << " : " << Elem.end << std::endl;
 	}
 	//have element name and start set
 	else if ((Elem.name != DEF_NAME) && (Elem.end == DEF_END) && (Elem.start != DEF_START))
 	{
 		out <<
-			std::left << std::setw(19) << "    Element Name" << " : " << Elem.name << std::endl <<
-			std::left << std::setw(19) << "      Element Start" << " : " << Elem.start << std::endl;
+			std::left << std::setw(TEXT_WIDTH) << "    Element Name" << " : " << Elem.name << std::endl <<
+			std::left << std::setw(TEXT_WIDTH) << "      Element Start" << " : " << Elem.start << std::endl;
 	}
 	//have element name and end set
 	else if ((Elem.name != DEF_NAME) && (Elem.end != DEF_END) && (Elem.start == DEF_START))
 	{
 		out <<
-			std::left << std::setw(19) << "    Element Name" << " : " << Elem.name << std::endl <<
-			std::left << std::setw(19) << "      Element End" << " : " << Elem.end << std::endl;
+			std::left << std::setw(TEXT_WIDTH) << "    Element Name" << " : " << Elem.name << std::endl <<
+			std::left << std::setw(TEXT_WIDTH) << "      Element End" << " : " << Elem.end << std::endl;
 	}
 	//only have element name set
 	else if ((Elem.name != DEF_NAME) && (Elem.end == DEF_END) && (Elem.start == DEF_START))
 	{
 		out <<
-			std::left << std::setw(19) << "    Element Name" << " : " << Elem.name << std::endl;
+			std::left << std::setw(TEXT_WIDTH) << "    Element Name" << " : " << Elem.name << std::endl;
 	}
 
 	return out;

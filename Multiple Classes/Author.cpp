@@ -17,6 +17,7 @@
 #define DEF_BIRTH 0
 #define DEF_DEATH 0
 #define DEF_NAME ""
+#define TEXT_WIDTH 20
 
 //Active author objects to start
 int Author::active = 0;
@@ -37,19 +38,19 @@ void Author::toCout()
 		if (name == "");
 		else if (true)
 		{
-			std::cout << std::left << std::setw(19) << " Author name" << " : " << name << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << " Author name" << " : " << name << std::endl;
 		}
 
 		if (birthYear == 0);
 		else if (birthYear > 0)
 		{
-			std::cout << std::left << std::setw(19) << "   Birth Year" << " : " << birthYear << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "   Birth Year" << " : " << birthYear << std::endl;
 		}
 
 		if (deathYear == 0);
 		else if (deathYear > 0)
 		{
-			std::cout << std::left << std::setw(19) << "   Death Year" << " : " << deathYear << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "   Death Year" << " : " << deathYear << std::endl;
 		}
 }
 
@@ -120,6 +121,25 @@ int Author::in_mem()
 
 std::ostream& operator<<(std::ostream &out, Author &Auth)
 {
-	out << std::left << std::setw(19) << "  Author" << " : " << Auth.name;
+	out << std::left << std::setw(TEXT_WIDTH) << "  Author" << " : " << Auth.name;
 	return out;
+}
+
+std::istream& operator>>(std::istream &in, Author &Auth)
+{
+	int born, died;
+	std::string name;
+	
+	in >> born;
+	Auth.setBirth(born);
+	std::cin.ignore(1, '\n');
+
+	in >> died;
+	Auth.setDeath(died);
+	std::cin.ignore(1, '\n');
+
+	std::getline(in, name);
+	Auth.setName(name);
+
+	return in;
 }

@@ -26,4 +26,5 @@ public:
 	void toCout();
 
 	friend std::ostream& operator<<(std::ostream &out, Author &Auth);
+	friend std::istream& operator>>(std::istream &in, Author &Auth);
 };

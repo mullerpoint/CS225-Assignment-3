@@ -19,6 +19,7 @@
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
 #define ELEMENT_ZERO 0
+#define TEXT_WIDTH 20
 
 //active mediaitem objects to start
 int MediaItems::active = 0;
@@ -37,10 +38,12 @@ MediaItems::MediaItems()
 
 	MediaItems::setPubYear(DEF_PUB);
 	pub_year_def = true;
+	
+	MediaItems::setSequel(NULL);
 
 	MediaItems::modified(false);
 
-	MediaItems::setSequel(NULL);
+	
 
 	element_num = ELEMENT_ZERO;
 	active++;
@@ -60,35 +63,35 @@ void MediaItems::toCout()
 		if (name == DEF_NAME);
 		else if (name != DEF_NAME)
 		{
-			std::cout << std::left << std::setw(19) << "Media Item" << " : " << name << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << name << std::endl;
 		}
 
 		//display author name if present
 		if (author_ptr == NULL);
 		else if (author_ptr != NULL)
 		{
-			std::cout << std::left << std::setw(19) << "  Author" << " : " << (*MediaItems::author_ptr).getName() << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "  Author" << " : " << (*MediaItems::author_ptr).getName() << std::endl;
 		}
 
 		//display publication year if set; check if the value is default
 		if (pub_year_def == true);
 		else if (pub_year_def == false)
 		{
-			std::cout << std::left << std::setw(19) << "  Pub Year" << " : " << pub_year << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "  Pub Year" << " : " << pub_year << std::endl;
 		}
 
 		//display page count if present
 		if (pages == DEF_PAGES);
 		else if (pages != DEF_PAGES)
 		{
-			std::cout << std::left << std::setw(19) << "  Pages" << " : " << pages << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "  Pages" << " : " << pages << std::endl;
 		}
 
 		//display price if set
 		if (price == DEF_PRICE);
 		else if (price != DEF_PRICE)
 		{
-			std::cout << std::left << std::setw(19) << "  Price" << " : $" << std::fixed << price << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "  Price" << " : $" << std::fixed << price << std::endl;
 		}
 
 		//display if the item is in print; check for default then prints the value
@@ -97,11 +100,11 @@ void MediaItems::toCout()
 		{
 			if (in_print == true)
 			{
-				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "In Print" << std::endl;
+				std::cout << std::left << std::setw(TEXT_WIDTH) << "  Print Status" << " : " << "In Print" << std::endl;
 			}
 			else if (in_print == false)
 			{
-				std::cout << std::left << std::setw(19) << "  Print Status" << " : " << "Out of Print" << std::endl;
+				std::cout << std::left << std::setw(TEXT_WIDTH) << "  Print Status" << " : " << "Out of Print" << std::endl;
 			}
 		}
 
@@ -109,7 +112,7 @@ void MediaItems::toCout()
 		if (sequel_ptr == NULL);
 		else if (sequel_ptr != NULL)
 		{
-			std::cout << std::left << std::setw(19) << "  Sequel" << " : " << (*MediaItems::sequel_ptr).getName() << std::endl;
+			std::cout << std::left << std::setw(TEXT_WIDTH) << "  Sequel" << " : " << (*MediaItems::sequel_ptr).getName() << std::endl;
 		}
 
 		//display elements if they exist; 

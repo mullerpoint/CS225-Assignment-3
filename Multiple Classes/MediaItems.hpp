@@ -16,7 +16,6 @@ private:
 	int pages;
 
 	MediaItems* sequel_ptr;
-	bool hasSequel;
 
 	bool in_print;
 	bool in_print_def;
