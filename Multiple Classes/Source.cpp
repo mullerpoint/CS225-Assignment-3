@@ -424,7 +424,7 @@ void print_menu()
 {
 	std::cout << std::endl
 		<< "* - Display all media items data" << std::endl
-		<< "+/- increment / decrement the selecte item w/in the Array" << std::endl
+		<< "+/- increment / decrement the select item w/in the Array" << std::endl
 		<< "# - set the selected media item" << std::endl
 		<< "0 - Clear Media Item Data" << std::endl
 		<< "C - Create New Author Item" << std::endl
